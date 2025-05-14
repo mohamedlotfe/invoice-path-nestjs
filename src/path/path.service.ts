@@ -5,7 +5,7 @@ import { HttpService } from '@nestjs/axios';
 import * as BpmnModdle from 'bpmn-moddle';
 
 import { FlowElementsContainer, FlowNode } from 'bpmn-moddle';
-import { firstValueFrom } from 'rxjs';
+import axios from 'axios';
 
 interface BpmnProcess extends FlowElementsContainer {
   flowElements: FlowNode[];
@@ -52,10 +52,8 @@ export class PathService {
    */
   private async fetchBpmnXml(): Promise<string> {
     try {
-      const response = await firstValueFrom(
-        this.httpService.get<{ id: string; bpmn20Xml: string }>(
-          this.BPMN_API_URL,
-        ),
+      const response = await axios.get<{ id: string; bpmn20Xml: string }>(
+        this.BPMN_API_URL,
       );
       const xml = response?.data?.bpmn20Xml;
       if (!xml) {
@@ -109,7 +107,8 @@ export class PathService {
               .filter((id): id is string => Boolean(id))
           : [];
       }
-    } catch {
+    } catch (error) {
+      console.error('Error parsing BPMN XML:', error);
       throw new HttpException(
         'Failed to parse BPMN XML',
         HttpStatus.BAD_GATEWAY,

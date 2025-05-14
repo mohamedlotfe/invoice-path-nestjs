@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+      # Override URL if needed:
+      - BPMN_API_URL=https://example.com/engine-rest/process-definition/key/invoice/xml
+    depends_on: []
