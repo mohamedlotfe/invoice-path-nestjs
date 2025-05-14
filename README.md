@@ -2,11 +2,32 @@
 
 This NestJS application fetches a BPMN diagram from a REST endpoint, constructs an in-memory graph of its flow nodes, and exposes an HTTP API to find a path between two nodes.
 
+
+## Features
+
+- ✅ Fetch and parse BPMN 2.0 XML via Camunda REST API
+- ✅ Graph construction of flow nodes and sequence flows
+- ✅ DFS-based path discovery between any two nodes
+- ✅ Typed DTOs for success and error responses
+- ✅ Dockerized deployment with Docker Compose
+- ✅ Unit-tested service logic with Jest
+
 ## Prerequisites
 
 - **Node.js** v18 or higher
 - **npm** (v8+) or **yarn**
 - Internet access to retrieve the BPMN XML
+
+
+## Dependencies
+- NestJS 10.x
+- xios 1.x
+- bpmn-moddle 5.x
+- class-validator 0.14.x
+- class-transformer 0.5.x
+- rxjs 7.x
+- Jest (bundled with NestJS)
+
 
 ## Installation
 
@@ -40,6 +61,13 @@ npm run build
 # Start in production
 npm run start:prod
 ```
+### Using Docker:
+   Build and run the Docker container using Docker Compose:
+
+```bash
+  docker-compose up --build
+```
+
 
 ## API Usage
 
